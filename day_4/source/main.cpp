@@ -1,18 +1,15 @@
 #include "../include/include.h"
 
 // the file contains pairs of ranges
-// find the amount of ranges that contain their pair in full
-
+// find the amount of ranges that overlap each other
 
 int CheckForNesting(int n1, int n2, int n3, int n4)
 {
-    if (n1 <= n3)
-        if (n2 >= n4)
-            return 1;
+    if (n1 <= n3 && n2 >= n3)
+        return 1;
 
-    if (n3 <= n1)
-        if (n4 >= n2)
-            return 1;
+    if (n3 <= n1 && n4 >= n1)
+        return 1;
 
     return 0;
 }
@@ -58,7 +55,7 @@ int main()
 
     } while (!file_hook.eof());
     
-    std::cout << "Total full covers: " << total_full_covers << "\n";
+    std::cout << "Total overlaps: " << total_full_covers << "\n";
 
     return 0;
 }
