@@ -1,16 +1,23 @@
 #include "../include/include.h"
 
 // Rock-Paper-Scissors game
-// A, X - rock (1 point)
-// B, Y - paper (2 points)
-// C, Z - scissors (3 points)
+// A - rock (1 point)
+// B - paper (2 points)
+// C - scissors (3 points)
 
 // Round results:
 // win - 6 points
 // lose - 0 points
 // draw - 3 points
 
+// Desired round result:
+// X - you must lose
+// Y - must be a draw
+// Z - you must win
+
 // Very Ugly
+// A - Your opponent move
+// B - desired round result
 int RockPaperScissorsRound(int A, int B)
 {
     int round_score = 0;
@@ -20,16 +27,16 @@ int RockPaperScissorsRound(int A, int B)
         case ROCK:
             switch (B)
             {
-                case ROCK:
+                case LOSE:
+                    round_score = SCISSORS + LOSE;
+                    break;
+
+                case DRAW:
                     round_score = ROCK + DRAW;
                     break;
 
-                case PAPER:
+                case WIN:
                     round_score = PAPER + WIN;
-                    break;
-
-                case SCISSORS:
-                    round_score = SCISSORS + LOSE;
                     break;
 
                 default:
@@ -41,15 +48,15 @@ int RockPaperScissorsRound(int A, int B)
         case PAPER:
             switch (B)
             {
-                case ROCK:
+                case LOSE:
                     round_score = ROCK + LOSE;
                     break;
 
-                case PAPER:
+                case DRAW:
                     round_score = PAPER + DRAW;
                     break;
 
-                case SCISSORS:
+                case WIN:
                     round_score = SCISSORS + WIN;
                     break;
 
@@ -62,16 +69,16 @@ int RockPaperScissorsRound(int A, int B)
         case SCISSORS:
             switch (B)
             {
-                case ROCK:
-                    round_score = ROCK + WIN;
-                    break;
-                
-                case PAPER:
+                case LOSE:
                     round_score = PAPER + LOSE;
                     break;
-
-                case SCISSORS:
+                
+                case DRAW:
                     round_score = SCISSORS + DRAW;
+                    break;
+
+                case WIN:
+                    round_score = ROCK + WIN;
                     break;
 
                 default:
@@ -99,13 +106,13 @@ int main()
     std::map <char, int> puzzle_data_map;
 
     puzzle_data_map['A'] = ROCK;
-    puzzle_data_map['X'] = ROCK;
-
     puzzle_data_map['B'] = PAPER;
-    puzzle_data_map['Y'] = PAPER;
-
     puzzle_data_map['C'] = SCISSORS;
-    puzzle_data_map['Z'] = SCISSORS;
+
+    puzzle_data_map['X'] = LOSE;
+    puzzle_data_map['Y'] = DRAW;
+    puzzle_data_map['Z'] = WIN;
+
 
     do
     {
