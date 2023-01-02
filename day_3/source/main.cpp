@@ -9,18 +9,27 @@
 // A -> Z | 27 -> 52
 
 // The goal is to find the sum of values for common items in these rucksacks
+// in sets of three
 
-char FindCommonItem(std::string rucksack_contents)
+char FindCommonItem(std::string rucksack_1, std::string rucksack_2, std::string rucksack_3)
 {
     char common;
+    bool commonFound = false;
 
-    for (int i = 0; i < rucksack_contents.length() / 2; i++)
-        for (int k = rucksack_contents.length() / 2; k < rucksack_contents.length(); k++)
-            if (rucksack_contents[i] == rucksack_contents[k])
-            {
-                common = rucksack_contents[i];
-                break;
-            }
+    for (int i = 0; i < rucksack_1.length() && !commonFound; i++)
+        for (int k = 0; k < rucksack_2.length() && !commonFound; k++)
+        {
+            if (rucksack_1[i] == rucksack_2[k])
+                for (int j = 0; j < rucksack_3.length(); j++)
+                {
+                    if (rucksack_2[k] == rucksack_3[j])
+                    {
+                        common = rucksack_3[j];
+                        commonFound = true;
+                        break;
+                    }
+                }
+        }
 
     return common;
 }
@@ -39,14 +48,18 @@ int main()
 
     puzzle_hook.open("puzzle_input.txt", std::ios::in);
 
-    std::string file_line;
+    std::string rucksack_1;
+    std::string rucksack_2;
+    std::string rucksack_3;
 
     int total_common_value = 0;
     do
     {
-        getline(puzzle_hook, file_line);
+        getline(puzzle_hook, rucksack_1);
+        getline(puzzle_hook, rucksack_2);
+        getline(puzzle_hook, rucksack_3);
 
-        total_common_value += ConvertItemToValue(FindCommonItem(file_line));
+        total_common_value += ConvertItemToValue(FindCommonItem(rucksack_1, rucksack_2, rucksack_3));
 
     } while (!puzzle_hook.eof());
 
