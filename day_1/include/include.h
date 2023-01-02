@@ -5,4 +5,6 @@
 #include <string>
 #include <fstream>
 
+#define MAX_TOP 3
+
 #endif
